@@ -2,11 +2,11 @@ import re
 from collections.abc import Generator
 from io import BufferedReader
 
-from .log_reader_base import LogReader
+from .base import LogReaderBase
 from ..models import LogEntry
 
 
-class SquidLogReader(LogReader):
+class SquidLogReader(LogReaderBase):
     """
     LogReader to parse the access.log file from Squid.
     Each log entry has the following components:

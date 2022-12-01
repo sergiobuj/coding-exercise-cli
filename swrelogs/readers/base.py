@@ -5,7 +5,7 @@ from io import BufferedReader
 from ..models import LogEntry
 
 
-class LogReader(ABC):
+class LogReaderBase(ABC):
     @abstractmethod
     def __init__(self, file: BufferedReader):
         "Constructor receives the opened file"
