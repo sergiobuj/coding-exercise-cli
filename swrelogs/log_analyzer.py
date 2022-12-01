@@ -1,7 +1,5 @@
 from io import BufferedReader
 
-from dateutil import tz
-
 from .metrics import BytesCounter, EventRate, IPCounter
 from .readers.squid import SquidLogReader
 
