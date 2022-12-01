@@ -1,12 +1,18 @@
 import re
 from collections.abc import Generator
+from io import BufferedReader
 
 from .log_reader import LogReader
 from .models import LogEntry
 
 
 class SquidLogReader(LogReader):
-    """time elapsed remotehost code/status bytes method URL rfc931 peerstatus/peerhost type"""
+    """
+    LogReader to parse the access.log file from Squid.
+    Each log entry has the following components:
+
+    time elapsed remotehost code/status bytes method URL rfc931 peerstatus/peerhost type
+    """
 
     SQUID_LOGENTRY_FORMAT = r"""^
     (?P<timestamp>\S+)\s+
@@ -20,18 +26,9 @@ class SquidLogReader(LogReader):
     (?P<peer>\S+)\s+
     (?P<type>\S+)$"""
 
-    def __init__(self, path: str):
-        self.filepath = path
+    def __init__(self, file: BufferedReader):
         self.entry_regex = re.compile(self.SQUID_LOGENTRY_FORMAT, re.VERBOSE)
-        self.file = None
-
-    def __enter__(self) -> "SquidLogReader":
-        self.file = open(self.filepath, "rb")
-        return self
-
-    def __exit__(self, ctx_type, ctx_value, ctx_traceback):
-        if self.file:
-            self.file.close()
+        self.file = file
 
     def logs(self) -> Generator[LogEntry, None, None]:
         if not self.file:

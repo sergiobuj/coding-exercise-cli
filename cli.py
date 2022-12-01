@@ -1,6 +1,6 @@
 import argparse
 
-from swrelogs import SquidLogReader, log_analyzer
+from swrelogs.log_analyzer import log_analyzer
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -15,6 +15,5 @@ if __name__ == "__main__":
     )
     arguments = parser.parse_args()
 
-    reader = SquidLogReader(path=arguments.input)
-    report = log_analyzer(reader)
+    report = log_analyzer(arguments.input)
     print(report)

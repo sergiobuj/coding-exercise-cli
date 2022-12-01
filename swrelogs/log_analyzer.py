@@ -1,19 +1,26 @@
 from collections import Counter
 from datetime import datetime
+from io import BufferedReader
 
 from dateutil import tz
 
-from .log_reader import LogReader
+from .squid_log_reader import SquidLogReader
 
 
-def log_analyzer(log_reader: LogReader) -> dict[str, float | int | str]:
+def _get_log_reader(file: BufferedReader):
+    # Determine log file format, only one for now.
+    return SquidLogReader
+
+
+def log_analyzer(source_filepath: str) -> dict[str, float | int | str]:
     bytes_total = 0
     ip_counter = Counter()
     log_entries_count = 0
     min_timestamp, max_timestamp = float("Inf"), float("-Inf")
 
-    with log_reader as reader:
-        for entry in reader.logs():
+    with open(source_filepath, "rb") as file:
+        reader = _get_log_reader(file)
+        for entry in reader(file).logs():
             log_entries_count += 1
             ip_counter.update([entry.remotehost])
             bytes_total += int(entry.bytes)
