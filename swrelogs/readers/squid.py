@@ -2,8 +2,8 @@ import re
 from collections.abc import Generator
 from io import BufferedReader
 
-from .log_reader import LogReader
-from .models import LogEntry
+from .log_reader_base import LogReader
+from ..models import LogEntry
 
 
 class SquidLogReader(LogReader):

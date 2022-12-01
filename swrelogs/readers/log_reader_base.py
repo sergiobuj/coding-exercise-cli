@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from collections.abc import Generator
 from io import BufferedReader
 
-from .models import LogEntry
+from ..models import LogEntry
 
 
 class LogReader(ABC):

@@ -4,7 +4,7 @@ from io import BufferedReader
 
 from dateutil import tz
 
-from .squid_log_reader import SquidLogReader
+from .readers.squid import SquidLogReader
 
 
 def _get_log_reader(file: BufferedReader):
