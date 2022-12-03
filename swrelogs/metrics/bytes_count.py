@@ -13,5 +13,5 @@ class BytesCounter(MetricBase):
     def report(self, *args, **kwargs) -> dict | str | int | float:
         return self.total_bytes
 
-    def label(self) -> str:
+    def label(self, *args, **kwargs) -> str:
         return "bytes"

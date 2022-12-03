@@ -29,5 +29,5 @@ class EventRate(MetricBase):
         avg = self.entries_count / max(diff_datetime.total_seconds() + 1, 1)
         return round(avg, 5)
 
-    def label(self) -> str:
+    def label(self, *args, **kwargs) -> str:
         return "eps"

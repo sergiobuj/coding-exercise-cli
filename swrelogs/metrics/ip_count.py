@@ -22,5 +22,5 @@ class IPCounter(MetricBase):
 
         return self.counter.most_common(1)[0][0]
 
-    def label(self) -> str:
+    def label(self, *args, **kwargs) -> str:
         return "lfip" if self.least_frequent else "mfip"
