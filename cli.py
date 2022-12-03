@@ -6,6 +6,8 @@ from typing import List
 
 from swrelogs.log_analyzer import log_analyzer
 from swrelogs.metrics import BytesCounter, EventRate, IPCounter
+from swrelogs.formatter import JSONFormatter
+
 
 def resolve_sources(path: Path) -> List[Path]:
     # TODO: maybe restrict to interesting/supported files path.rglob("*.[log csv]")
@@ -87,4 +89,7 @@ if __name__ == "__main__":
         for metric in metrics:
             label = metric.label()
             report[label] = metric.report()
-        print(report)
+
+        formatter = JSONFormatter(report)
+        with open(arguments.output, "w", encoding="UTF8", newline="") as f:
+            formatter.write(f)
