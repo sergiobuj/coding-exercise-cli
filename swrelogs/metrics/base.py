@@ -11,3 +11,7 @@ class MetricBase(ABC):
     @abstractmethod
     def report(self, *args, **kwargs) -> dict | str | int | float:
         "Return the value of the metric"
+
+    @abstractmethod
+    def label(self, *args, **kwargs) -> str:
+        "Return the label of the metric"
