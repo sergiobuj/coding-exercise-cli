@@ -1,7 +1,15 @@
 import argparse
+import io
+from pathlib import Path
+import sys
+from typing import List
 
 from swrelogs.log_analyzer import log_analyzer
 from swrelogs.metrics import BytesCounter, EventRate, IPCounter
+
+def resolve_sources(path: Path) -> List[Path]:
+    # TODO: maybe restrict to interesting/supported files path.rglob("*.[log csv]")
+    return list(path.iterdir()) if path.is_dir() else [path]
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -46,7 +54,16 @@ if __name__ == "__main__":
         help="Total amount of bytes exchanged",
         default=False,
     )
+
+    parser.add_argument(
+        "--output",
+        type=str,
+        help="Path to a file to save output in plain text JSON format.",
+        default=None,
+    )
     arguments = parser.parse_args()
+
+    input_paths = resolve_sources(Path(arguments.input))
 
     metrics = []
     if arguments.mfip:
@@ -62,7 +79,8 @@ if __name__ == "__main__":
         metrics.append(BytesCounter())
 
     if metrics:
-        log_analyzer(arguments.input, metrics)
+        for path in input_paths:
+            log_analyzer(str(path), metrics)
 
         report = {}
         for metric in metrics:
