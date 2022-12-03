@@ -1,11 +1,11 @@
-from io import BufferedReader
+from io import IOBase
 from typing import List
 
 from .metrics import MetricBase
 from .readers.squid import SquidLogReader
 
 
-def _get_log_reader(file: BufferedReader):
+def _get_log_reader(file: IOBase):
     # Determine log file format, only one for now.
     return SquidLogReader
 

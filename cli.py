@@ -11,6 +11,7 @@ def resolve_sources(path: Path) -> List[Path]:
     # TODO: maybe restrict to interesting/supported files path.rglob("*.[log csv]")
     return list(path.iterdir()) if path.is_dir() else [path]
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
