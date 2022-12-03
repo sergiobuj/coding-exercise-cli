@@ -18,6 +18,9 @@ class JSONFormatter(OutputFormatter):
     def __init__(self, data: dict):
         self.data = data
 
+    def get_path(self, filepath: str) -> Path:
+        return Path(filepath).with_suffix(".json")
+
     def write(self, file: IOBase) -> None:
         contents = json.dumps(self.data)
         file.write(contents)

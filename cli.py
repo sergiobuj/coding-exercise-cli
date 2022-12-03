@@ -91,5 +91,7 @@ if __name__ == "__main__":
             report[label] = metric.report()
 
         formatter = JSONFormatter(report)
-        with open(arguments.output, "w", encoding="UTF8", newline="") as f:
+        if arguments.output:
+            output_path = formatter.get_path(arguments.output)
+            with open(output_path, "w", encoding="UTF8", newline="") as f:
             formatter.write(f)
