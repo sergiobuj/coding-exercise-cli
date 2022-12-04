@@ -92,6 +92,8 @@ if __name__ == "__main__":
 
         formatter = JSONFormatter(report)
         if arguments.output:
-            output_path = formatter.get_path(arguments.output)
+            output_path = Path(arguments.output).with_suffix(
+                f".{formatter.file_extension()}"
+            )
             with open(output_path, "w", encoding="UTF8", newline="") as f:
             formatter.write(f)
