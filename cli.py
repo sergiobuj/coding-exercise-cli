@@ -1,12 +1,12 @@
 import argparse
 import io
-from pathlib import Path
 import sys
+from pathlib import Path
 from typing import List
 
+from swrelogs.formatter import JSONFormatter
 from swrelogs.log_analyzer import log_analyzer
 from swrelogs.metrics import BytesCounter, EventRate, IPCounter
-from swrelogs.formatter import JSONFormatter
 
 
 def resolve_sources(path: Path) -> List[Path]:
