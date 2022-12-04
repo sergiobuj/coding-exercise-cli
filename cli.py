@@ -96,4 +96,9 @@ if __name__ == "__main__":
                 f".{formatter.file_extension()}"
             )
             with open(output_path, "w", encoding="UTF8", newline="") as f:
-            formatter.write(f)
+                formatter.write(f)
+
+        else:
+            with io.StringIO() as dest:
+                formatter.write(dest)
+                print(dest.getvalue(), file=sys.stdout)
