@@ -1,7 +1,7 @@
 import re
 import sys
 from collections.abc import Generator
-from io import BufferedReader
+from io import BufferedIOBase
 
 from ..models import LogEntry
 from .base import LogReaderBase
@@ -32,7 +32,7 @@ class SquidLogReader(LogReaderBase):
     (?P<peer>\S+)\s+
     (?P<type>\S+)$"""
 
-    def __init__(self, file: BufferedReader):
+    def __init__(self, file: BufferedIOBase):
         self.entry_regex = re.compile(self.SQUID_NATIVE_FORMAT, re.VERBOSE)
         self.file = file
 
