@@ -1,3 +1,4 @@
+import csv
 import json
 from abc import ABC, abstractmethod
 from io import IOBase
@@ -23,3 +24,17 @@ class JSONFormatter(OutputFormatter):
     def write(self, file: IOBase) -> None:
         contents = json.dumps(self.data)
         file.write(contents)
+
+
+class CSVFormatter(OutputFormatter):
+    def __init__(self, data: dict):
+        self.data = data
+
+    def file_extension(self) -> str:
+        return "csv"
+
+    def write(self, file: IOBase) -> None:
+        headers = self.data.keys()
+        w = csv.DictWriter(file, fieldnames=headers)
+        w.writeheader()
+        w.writerow(self.data)

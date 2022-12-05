@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 from typing import List
 
-from swrelogs.formatter import JSONFormatter
+from swrelogs.formatter import CSVFormatter, JSONFormatter
 from swrelogs.log_analyzer import run_log_analyzer
 from swrelogs.metrics import BytesCounter, EventRate, IPCounter
 
@@ -63,12 +63,24 @@ if __name__ == "__main__":
     output_group.add_argument(
         "--output",
         type=str,
-        help="Path to a file to save the output in plain text JSON format.",
+        help="Path to a file to save output (JSON by default)",
         default=None,
+    )
+
+    parser.add_argument(
+        "--output-fmt",
+        type=str,
+        choices=["json", "csv"],
+        help="File format to save output.",
+        default="json",
     )
     arguments = parser.parse_args()
 
     input_paths = resolve_sources(Path(arguments.input))
+
+    formatter_class = JSONFormatter
+    if arguments.output_fmt == "csv":
+        formatter_class = CSVFormatter
 
     metrics = []
     if arguments.mfip:
@@ -95,7 +107,7 @@ if __name__ == "__main__":
         label = metric.label()
         report[label] = metric.report()
 
-    formatter = JSONFormatter(report)
+    formatter = formatter_class(report)
     if arguments.output:
         output_path = Path(arguments.output).with_suffix(
             f".{formatter.file_extension()}"
