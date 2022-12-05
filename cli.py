@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import List
 
 from swrelogs.formatter import JSONFormatter
-from swrelogs.log_analyzer import log_analyzer
+from swrelogs.log_analyzer import run_log_analyzer
 from swrelogs.metrics import BytesCounter, EventRate, IPCounter
 
 
@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
     if metrics:
         for path in input_paths:
-            log_analyzer(str(path), metrics)
+            run_log_analyzer(str(path), metrics)
 
         report = {}
         for metric in metrics:

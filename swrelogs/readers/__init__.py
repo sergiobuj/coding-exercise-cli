@@ -4,4 +4,5 @@
 swrelogs logreader package
 """
 
+from .base import LogReaderBase
 from .squid import SquidLogReader
