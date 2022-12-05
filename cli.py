@@ -26,7 +26,8 @@ if __name__ == "__main__":
         type=str,
     )
 
-    parser.add_argument(
+    metrics_group = parser.add_argument_group("metrics")
+    metrics_group.add_argument(
         "--mfip",
         action=argparse.BooleanOptionalAction,
         default=False,
@@ -34,7 +35,7 @@ if __name__ == "__main__":
         type=bool,
     )
 
-    parser.add_argument(
+    metrics_group.add_argument(
         "--lfip",
         action=argparse.BooleanOptionalAction,
         type=bool,
@@ -42,7 +43,7 @@ if __name__ == "__main__":
         default=False,
     )
 
-    parser.add_argument(
+    metrics_group.add_argument(
         "--eps",
         action=argparse.BooleanOptionalAction,
         type=bool,
@@ -50,7 +51,7 @@ if __name__ == "__main__":
         default=False,
     )
 
-    parser.add_argument(
+    metrics_group.add_argument(
         "--bytes",
         action=argparse.BooleanOptionalAction,
         type=bool,
@@ -58,7 +59,8 @@ if __name__ == "__main__":
         default=False,
     )
 
-    parser.add_argument(
+    output_group = parser.add_argument_group("output")
+    output_group.add_argument(
         "--output",
         type=str,
         help="Path to a file to save output in plain text JSON format.",
@@ -81,24 +83,27 @@ if __name__ == "__main__":
     if arguments.bytes:
         metrics.append(BytesCounter())
 
-    if metrics:
-        for path in input_paths:
-            run_log_analyzer(str(path), metrics)
+    if not metrics:
+        parser.print_help(sys.stderr)
+        parser.error("select at least one metric to gather")
 
-        report = {}
-        for metric in metrics:
-            label = metric.label()
-            report[label] = metric.report()
+    for path in input_paths:
+        run_log_analyzer(str(path), metrics)
 
-        formatter = JSONFormatter(report)
-        if arguments.output:
-            output_path = Path(arguments.output).with_suffix(
-                f".{formatter.file_extension()}"
-            )
-            with open(output_path, "w", encoding="UTF8", newline="") as f:
-                formatter.write(f)
+    report = {}
+    for metric in metrics:
+        label = metric.label()
+        report[label] = metric.report()
 
-        else:
-            with io.StringIO() as dest:
-                formatter.write(dest)
-                print(dest.getvalue(), file=sys.stdout)
+    formatter = JSONFormatter(report)
+    if arguments.output:
+        output_path = Path(arguments.output).with_suffix(
+            f".{formatter.file_extension()}"
+        )
+        with open(output_path, "w", encoding="UTF8", newline="") as f:
+            formatter.write(f)
+
+    else:
+        with io.StringIO() as dest:
+            formatter.write(dest)
+            print(dest.getvalue(), file=sys.stdout)
