@@ -9,7 +9,7 @@ class MetricBase(ABC):
         "Update the metric with a new LogEntry value"
 
     @abstractmethod
-    def report(self, *args, **kwargs) -> dict | str | int | float:
+    def report(self, *args, **kwargs) -> str | int | float:
         "Return the value of the metric"
 
     @abstractmethod

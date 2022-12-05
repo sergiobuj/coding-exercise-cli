@@ -13,7 +13,7 @@ class IPCounter(MetricBase):
         self.counter.update([log_entry.remotehost])
         return True
 
-    def report(self, *args, **kwargs) -> dict | str | int | float:
+    def report(self, *args, **kwargs) -> str | int | float:
         if not self.counter:
             return ""
 

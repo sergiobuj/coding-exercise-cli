@@ -10,7 +10,7 @@ class BytesCounter(MetricBase):
         self.total_bytes += max(int(log_entry.bytes), 0)
         return True
 
-    def report(self, *args, **kwargs) -> dict | str | int | float:
+    def report(self, *args, **kwargs) -> str | int | float:
         return self.total_bytes
 
     def label(self, *args, **kwargs) -> str:
