@@ -1,7 +1,10 @@
 from dataclasses import dataclass
 
+from pydantic import validate_arguments
+
 
 # pylint: disable=R0902
+@validate_arguments
 @dataclass
 class LogEntry:
     """time elapsed remotehost code/status bytes method URL rfc931 peerstatus/peerhost type"""
