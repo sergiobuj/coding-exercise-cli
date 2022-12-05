@@ -41,7 +41,8 @@ class TestEventRateMetric(unittest.TestCase):
         self.counter.update(LogEntry(timestamp=t))
         self.counter.update(LogEntry(timestamp=t + 20))
 
-        self.assertEqual(0.1, self.counter.report(), "count 1 request per second")
+        report = float(self.counter.report())
+        self.assertAlmostEqual(2/21, report, delta=1e-5 ,msg="count sparse request events")
 
 
 if __name__ == "__main__":
