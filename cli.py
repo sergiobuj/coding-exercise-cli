@@ -22,7 +22,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "input",
         default="",
-        help="Path to one plain-text file, or a directory. If directory, take all files as input.",
+        help="Path to one plain-text file, or a directory. If the path is to a directory, take all files as input.",
         type=str,
     )
 
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     output_group.add_argument(
         "--output",
         type=str,
-        help="Path to a file to save output in plain text JSON format.",
+        help="Path to a file to save the output in plain text JSON format.",
         default=None,
     )
     arguments = parser.parse_args()
