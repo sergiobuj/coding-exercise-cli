@@ -1,7 +1,8 @@
-from time import time
 import unittest
-from swrelogs.models import LogEntry
+from time import time
+
 from swrelogs.metrics import EventRate
+from swrelogs.models import LogEntry
 
 
 class TestEventRateCounter(unittest.TestCase):

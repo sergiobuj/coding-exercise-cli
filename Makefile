@@ -5,7 +5,7 @@ lint: style
 	pylint swrelogs/
 
 style:
-	isort swrelogs/* cli.py
+	isort swrelogs/* cli.py tests/*
 	black .
 
 test:

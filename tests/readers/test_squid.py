@@ -1,5 +1,6 @@
 import io
 import unittest
+
 from swrelogs.models import LogEntry
 from swrelogs.readers import SquidLogReader
 

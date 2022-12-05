@@ -1,6 +1,7 @@
 import unittest
-from swrelogs.models import LogEntry
+
 from swrelogs.metrics import IPCounter
+from swrelogs.models import LogEntry
 
 
 class TestIPCounter(unittest.TestCase):

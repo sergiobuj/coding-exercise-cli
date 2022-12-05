@@ -1,6 +1,7 @@
 import unittest
-from swrelogs.models import LogEntry
+
 from swrelogs.metrics import BytesCounter
+from swrelogs.models import LogEntry
 
 
 class TestBytesCounter(unittest.TestCase):
