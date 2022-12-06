@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Union
 
 from dateutil import tz
 
@@ -18,7 +19,7 @@ class EventRate(MetricBase):
         self.max_timestamp = max(self.max_timestamp, float(log_entry.timestamp))
         return True
 
-    def report(self, *args, **kwargs) -> str | int | float:
+    def report(self, *args, **kwargs) -> Union[str, int, float]:
         if self.min_timestamp == float("Inf") or self.max_timestamp == float("-Inf"):
             return 0
 

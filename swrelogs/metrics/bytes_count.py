@@ -1,3 +1,5 @@
+from typing import Union
+
 from ..models import LogEntry
 from .base import MetricBase
 
@@ -10,7 +12,7 @@ class BytesCounter(MetricBase):
         self.total_bytes += max(int(log_entry.bytes), 0)
         return True
 
-    def report(self, *args, **kwargs) -> str | int | float:
+    def report(self, *args, **kwargs) -> Union[str, int, float]:
         return self.total_bytes
 
     def label(self, *args, **kwargs) -> str:

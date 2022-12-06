@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from collections.abc import Generator
 from io import BufferedIOBase
+from typing import Generator
 
 from ..models import LogEntry
 

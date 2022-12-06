@@ -29,32 +29,28 @@ if __name__ == "__main__":
     metrics_group = parser.add_argument_group("metrics")
     metrics_group.add_argument(
         "--mfip",
-        action=argparse.BooleanOptionalAction,
+        action="store_true",
         default=False,
         help="Most frequent IP",
-        type=bool,
     )
 
     metrics_group.add_argument(
         "--lfip",
-        action=argparse.BooleanOptionalAction,
-        type=bool,
+        action="store_true",
         help="Least frequent IP",
         default=False,
     )
 
     metrics_group.add_argument(
         "--eps",
-        action=argparse.BooleanOptionalAction,
-        type=bool,
+        action="store_true",
         help="Events per second",
         default=False,
     )
 
     metrics_group.add_argument(
         "--bytes",
-        action=argparse.BooleanOptionalAction,
-        type=bool,
+        action="store_true",
         help="Total amount of bytes exchanged",
         default=False,
     )

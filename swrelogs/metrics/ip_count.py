@@ -1,4 +1,5 @@
 from collections import Counter
+from typing import Union
 
 from ..models import LogEntry
 from .base import MetricBase
@@ -13,7 +14,7 @@ class IPCounter(MetricBase):
         self.counter.update([log_entry.remotehost])
         return True
 
-    def report(self, *args, **kwargs) -> str | int | float:
+    def report(self, *args, **kwargs) -> Union[str, int, float]:
         if not self.counter:
             return ""
 

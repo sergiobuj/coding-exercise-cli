@@ -1,7 +1,7 @@
 import re
 import sys
-from collections.abc import Generator
 from io import BufferedIOBase
+from typing import Generator
 
 from ..models import LogEntry
 from .base import LogReaderBase
@@ -40,8 +40,12 @@ class SquidLogReader(LogReaderBase):
         if not self.file:
             return
 
-        while log_line := self.file.readline():
-            if search_obj := self.entry_regex.match(log_line.decode("utf-8")):
+        log_line = self.file.readline()
+        while log_line:
+            search_obj = self.entry_regex.match(log_line.decode("utf-8"))
+            if search_obj:
                 yield LogEntry(**search_obj.groupdict())
             else:
                 print(f"couldn't process {log_line}", file=sys.stderr)
+
+            log_line = self.file.readline()
