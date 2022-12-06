@@ -2,29 +2,31 @@
 
 ## Description
 
-Command line tool (CLI) to analyze `access.log` files.
+A Python >= 3.7.15 command line tool (CLI) to analyze `access.log` files.
 
 The tool reads a file or group of files and produces a summary for the provided arguments.
 
 ## Usage
 
 ```
-usage: cli.py [-h] [--mfip | --no-mfip] [--lfip | --no-lfip] [--eps | --no-eps] [--bytes | --no-bytes] [--output OUTPUT] input
+usage: cli.py [-h] [--mfip] [--lfip] [--eps] [--bytes] [--output OUTPUT] input
 
 positional arguments:
-  input                Path to one plain-text file, or a directory. If the path is to a directory, take all files as input.
+  input            Path to one plain-text file, or a directory. If the path is
+                   to a directory, take all files as input.
 
-options:
-  -h, --help           show this help message and exit
+optional arguments:
+  -h, --help       show this help message and exit
 
 metrics:
-  --mfip, --no-mfip    Most frequent IP (default: False)
-  --lfip, --no-lfip    Least frequent IP (default: False)
-  --eps, --no-eps      Events per second (default: False)
-  --bytes, --no-bytes  Total amount of bytes exchanged (default: False)
+  --mfip           Most frequent IP (default: False)
+  --lfip           Least frequent IP (default: False)
+  --eps            Events per second (default: False)
+  --bytes          Total amount of bytes exchanged (default: False)
 
 output:
-  --output OUTPUT      Path to a file to save the output in plain text JSON format. (default: None)
+  --output OUTPUT  Path to a file to save the output in plain text JSON
+                   format. (default: None)
 ```
 
 ## Supported formats
@@ -66,7 +68,7 @@ pip install -r requirements.txt
 Run the CLI tool for a single file:
 
 ```sh
-python cli.py sample_data/access.log --lfip --mfip --eps --bytes
+python cli.py sample_data/access.min.log --lfip --mfip --eps --bytes
 
 {"mfip": "127.0.0.1", "lfip": "210.10.215.171", "eps": 0.00546, "bytes": 2216979451}
 ```
@@ -90,7 +92,7 @@ To run with the docker container, provide:
  - `--mount` point to access files in the host.
 
 ```sh
-docker run --mount type=bind,source="$(pwd)",target=/home/swrelogs cli access.log --eps --output summary.json
+docker run --mount type=bind,source="$(pwd)",target=/home/swrelogs cli sample_data/access.min.log --eps --output summary.json
 ```
 
 ## Development
