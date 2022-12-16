@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 
 from pydantic import validate_arguments
 
@@ -25,3 +25,9 @@ class LogEntry:
     user: str = ""
     peer: str = ""
     type: str = ""
+
+    def __init__(self, **kwargs):
+        names = {f.name for f in fields(self)}
+        for k, v in kwargs.items():
+            if k in names:
+                setattr(self, k, v)
